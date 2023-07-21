@@ -1,0 +1,34 @@
+
+server:
+  port: 8011
+  servlet:
+    context-path: /@artifactId@
+spring:
+  application:
+    name: @artifactId@
+  datasource:
+    driver-class-name: net.ucanaccess.jdbc.UcanaccessDriver
+    url: jdbc:ucanaccess://E:\assignment\accountsdb.accdb
+    username:
+    password:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.HSQLDialect
+      ddl-auto: validate
+management:
+  httpexchanges:
+    recording:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+      export:
+        prometheus:
+          enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
