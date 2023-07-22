@@ -8,3 +8,15 @@ Tools:
 - Ms Access : Import database into MS ACCESS from this folder `database/accountsdb.accdb`
 - Sonar for code quality -> Setup: docker run -d -p 9000:9000 --name sonarqube sonarqube
 - Generate Sonar token add token inside <sonar.token> /<sonar.login> for sonar code quality check
+
+# Clone and run the project.
+- clone the project add your idea.
+- add the postman collection `account-svc.postman_collection.json` and environment in your postman
+- `account-env.postman_environment.json` and test the api.
+
+# Auditing 
+- I create custom annotation `LogRequestResponse` please check logging package. For enabling this change the log level debug by using actuator.
+
+# For Metric
+- Please check the observe package which are show the failure and calling count.
+  http://localhost:8011/accounts-svc/actuator/metrics/{obsername} check the postman collection
