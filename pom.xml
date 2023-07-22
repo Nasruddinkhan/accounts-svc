@@ -17,6 +17,31 @@
 		<java.version>17</java.version>
 		<ucanaccess.version>5.0.1</ucanaccess.version>
 		<org.springdoc.version>2.0.4</org.springdoc.version>
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
+		<!-- SonarQube authentication token -->
+		<sonar.token>squ_08046f4b1eb708291e003e2364228a5a5fe8affd</sonar.token>
+		<token.version>0.11.5</token.version>
+		<sonar.java.binaries>target/classes</sonar.java.binaries>
+		<sonar.sources>src/main/java</sonar.sources>
+		<sonar.exclusions>
+			com/sa/tawuniya/assingment/account/model/**/*,
+			com/sa/tawuniya/assingment/account/events/**/*,
+			com/sa/tawuniya/assingment/account/constants/**/*,
+			com/sa/tawuniya/assingment/account/AccountsSvcApplication.class,
+			com/sa/tawuniya/assingment/account/exception/**/*,
+			com/sa/tawuniya/assingment/account/util/**/*,
+			com/sa/tawuniya/assingment/account/repository/**/*,
+			com/sa/tawuniya/assingment/account/observe/**/*,
+			com/sa/tawuniya/assingment/account/mapper/**/*,
+			com/sa/tawuniya/assingment/account/filter/**/*,
+			com/sa/tawuniya/assingment/account/validation/**/*
+		</sonar.exclusions>		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>
+		<sonar.junit.reportsPath>target/jacoco-output</sonar.junit.reportsPath>
+		<sonar.coverage.jacoco.htmlReportPaths>target/site/jacoco.xml</sonar.coverage.jacoco.htmlReportPaths>
+		<sonar.jacoco.reportsPaths>target/jacoco-output/merged.exec</sonar.jacoco.reportsPaths>
+
 	</properties>
 	<dependencies>
 		<dependency>
@@ -63,17 +88,39 @@
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
-			<version>0.11.5</version>
+			<version>${token.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-impl</artifactId>
-			<version>0.11.5</version>
+			<version>${token.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
-			<version>0.11.5</version>
+			<version>${token.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>2.12.5</version> <!-- Replace with the latest version available -->
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -100,6 +147,79 @@
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
+
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+
+				<executions>
+					<!-- Define plugin execution with specific goals and properties (if needed) -->
+					<execution>
+						<id>default-sonar</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sonar</goal>
+						</goals>
+					</execution>
+				</executions>
+
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.7</version>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<haltOnFailure>false</haltOnFailure>
+							<rules>
+								<rule>
+									<element>BUNDLE</element>
+									<limits>
+										<limit>
+											<value>COVEREDRATIO</value>
+											<minimum>0.80</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+						<exclude>com/sa/tawuniya/assingment/account/model/**/*</exclude>
+						<exclude>com/sa/tawuniya/assingment/account/events/**/*</exclude>
+						<exclude>com/sa/tawuniya/assingment/account/constants/**/*</exclude>
+						<exclude>com/sa/tawuniya/assingment/account/AccountsSvcApplication.class</exclude>
+						<exclude>com/sa/tawuniya/assingment/account/exception/**/*</exclude>
+						<exclude>com/sa/tawuniya/assingment/account/util/**/*</exclude>
+						<exclude>com/sa/tawuniya/assingment/account/repository/**/*</exclude>
+						<exclude>com/sa/tawuniya/assingment/account/observe/**/*</exclude>
+						<exclude>com/sa/tawuniya/assingment/account/mapper/**/*</exclude>
+						<exclude>com/sa/tawuniya/assingment/account/filter/**/*</exclude>
+						<exclude>com/sa/tawuniya/assingment/account/validation/**/*</exclude>
+						<exclude>com/saib/sa/locator/service/services</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
         </plugins>
 	</build>
 

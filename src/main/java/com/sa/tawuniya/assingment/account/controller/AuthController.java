@@ -20,7 +20,7 @@ import java.util.Map;
 @Slf4j
 @Observed(name = "login-api")
 @RequiredArgsConstructor
-public class AuthRequest {
+public class AuthController {
 
     private final AuthService authService;
     @LogRequestResponse

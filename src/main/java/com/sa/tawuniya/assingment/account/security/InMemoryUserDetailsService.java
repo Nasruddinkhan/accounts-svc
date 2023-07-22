@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.sa.tawuniya.assingment.account.constants.ApplicationConstants.*;
 import static com.sa.tawuniya.assingment.account.constants.ErrorConstants.USER_NOT_FOUND;
 
 @Service
@@ -20,12 +21,11 @@ public class InMemoryUserDetailsService implements UserDetailsService {
     private final Map<String, User> users = new ConcurrentHashMap<>();
 
     public InMemoryUserDetailsService() {
-        users.put("user",new User("user", "user", List.of("USER")));
-        users.put("admin", new User("admin", "admin", List.of("ADMIN")));
+        users.put(USER,new User(USER, USER, List.of(USER_ROLE)));
+        users.put(ADMIN, new User(ADMIN, ADMIN, List.of(ADMIN_ROLE)));
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("calling load by username loadUserByUsername");
         return Optional.ofNullable(users.get(username))
                 .map(this::getUser)
                 .orElseThrow(()-> new AccountException( AccountResponseErrorCode.NOT_FOUND, String.format( USER_NOT_FOUND)));

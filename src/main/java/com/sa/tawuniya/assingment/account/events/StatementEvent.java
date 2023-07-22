@@ -11,7 +11,6 @@ public enum StatementEvent {
     DATE_RANGE,
     AMT_RANGE,
     LAST_THREE_MONTH,
-
     BY_ACC_NO;
 
     public static StatementEvent match(BigDecimal fromAmount, BigDecimal toAmount, LocalDate fromDate, LocalDate toDate) {

@@ -1,12 +1,14 @@
 package com.sa.tawuniya.assingment.account;
 
-import com.sa.tawuniya.assingment.account.repository.AccountRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -19,10 +21,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 		in = SecuritySchemeIn.HEADER
 )
 public class AccountsSvcApplication{
-	private final AccountRepository accountRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(AccountsSvcApplication.class, args);
 	}
-
+	@Bean
+	public ObjectMapper objectMapper() {
+		final var objectMapper = new ObjectMapper();
+		objectMapper.registerModule(new JavaTimeModule());
+		return objectMapper;
+	}
 
 }

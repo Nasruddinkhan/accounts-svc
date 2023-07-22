@@ -23,7 +23,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws  ServletException, IOException {
         Optional<String> authHeader = Optional.ofNullable(request.getHeader("Authorization"));
         if (authHeader.isEmpty() || !authHeader.get().startsWith("Bearer ")) {
             filterChain.doFilter(request, response);

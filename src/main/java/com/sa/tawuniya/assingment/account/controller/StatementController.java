@@ -19,13 +19,13 @@ import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping
+@RequestMapping("/api/v1")
 @Observed(name = "statement-api")
 @SecurityRequirement(name = "account-api")
 public class StatementController {
     private final StatementService statementService;
     private final RequestPayloadValidation requestPayloadValidation;
-    @GetMapping("/statements")
+    @GetMapping(value = "/statements")
     @LogRequestResponse
     public ResponseEntity<AccountDto> getStatements(
             @RequestParam(name = "accountId") Long accountId,

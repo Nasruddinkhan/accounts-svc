@@ -30,7 +30,7 @@ public class GlobalExceptionAdvice {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<AccountErrorResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex, HttpServletRequest request) {
-        return this.createErrorResponse(new AccountException(BAD_REQUEST, String.format(INVALID_ARGUMENT, ex.getName(), ex.getRequiredType().getSimpleName()) ), request);
+        return this.createErrorResponse(new AccountException(BAD_REQUEST, String.format(INVALID_ARGUMENT, ex.getName(), ex.getName()) ), request);
 
     }
 

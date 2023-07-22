@@ -3,6 +3,7 @@ package com.sa.tawuniya.assingment.account.validation;
 import com.sa.tawuniya.assingment.account.exception.AccountException;
 import com.sa.tawuniya.assingment.account.exception.enums.AccountResponseErrorCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.sa.tawuniya.assingment.account.constants.ErrorConstants.*;
 
@@ -47,7 +49,9 @@ public class RequestPayloadValidation {
     }
 
     public static String getLoggedInUserId() {
-        var listOfRole =   SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().map(GrantedAuthority ::getAuthority).toList();
-        return listOfRole.get(0);
+        return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+                .map(Authentication::getAuthorities)
+                .map(authorities1 -> authorities1.stream().map(GrantedAuthority::getAuthority).findFirst().get()).orElse("");
+
     }
 }
