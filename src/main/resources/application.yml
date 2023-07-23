@@ -8,7 +8,7 @@ spring:
     name: @artifactId@
   datasource:
     driver-class-name: net.ucanaccess.jdbc.UcanaccessDriver
-    url: jdbc:ucanaccess://E:\assignment\accountsdb.accdb
+    url: jdbc:ucanaccess://${JDBC_URL:src\main\resources\accountsdb.accdb}
     username:
     password:
   jpa:
