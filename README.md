@@ -10,9 +10,8 @@ Tools:
 - Generate Sonar token add token inside <sonar.token> /<sonar.login> for sonar code quality check
 
 # Clone and run the project.
-- clone the project add your idea.
-- add the postman collection `account-svc.postman_collection.json` and environment in your postman
-- `account-env.postman_environment.json` and test the api.
+- clone the project open into your idea and run it.
+- add the postman collection `account-svc.postman_collection.json` and environment in your postman `account-env.postman_environment.json` and test the api.
 
 # Auditing 
 - I create custom annotation `LogRequestResponse` please check logging package. For enabling this change the log level debug by using actuator.
