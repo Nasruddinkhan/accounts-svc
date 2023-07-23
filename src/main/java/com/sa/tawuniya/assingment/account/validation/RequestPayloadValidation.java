@@ -25,12 +25,11 @@ public class RequestPayloadValidation {
     }
 
     private void validateDate(LocalDate fromDate, LocalDate toDate) {
-        if ( (Objects.isNull(fromDate) && Objects.nonNull(toDate) )||  (Objects.isNull(toDate) && Objects.nonNull(fromDate))){
+        if ( (Objects.isNull(fromDate) && Objects.nonNull(toDate) )||  (Objects.isNull(toDate) && Objects.nonNull(fromDate)))
             throw new AccountException(AccountResponseErrorCode.BAD_REQUEST,String.format(FROM_DATE_END_DATE_MSG,fromDate, toDate ) );
-        }
-        if (fromDate != null  && fromDate.isAfter(toDate)) {
+
+        if (fromDate != null  && fromDate.isAfter(toDate))
             throw new AccountException(AccountResponseErrorCode.BAD_REQUEST, String.format(DATE_RANGE_VAL_MSG, fromDate, toDate));
-        }
     }
 
     private void validateAmount(BigDecimal fromAmount, BigDecimal toAmount) {

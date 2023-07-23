@@ -1,6 +1,7 @@
 package com.sa.tawuniya.assingment.account;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -17,8 +18,8 @@ class AccountsSvcApplicationTests {
 	@LocalServerPort
 	private int port;
 
-	@Autowired
-	TestRestTemplate testRestTemplate;
+	@InjectMocks
+	AccountsSvcApplication testRestTemplate;
 
 	@Test
 	void contextLoads() {
